@@ -45,7 +45,7 @@ const Form = ({ defaultValues, onSubmit, errorMessage }: IFormProps) => {
         />
         {errors.name && <span>nama required</span>}
       </div>
-      <div>
+      <div className="flex flex-col">
         <label htmlFor="email">Email</label>
         <input
           {...register("email", { required: true })}
@@ -54,7 +54,7 @@ const Form = ({ defaultValues, onSubmit, errorMessage }: IFormProps) => {
         {errors.email && <span>email required</span>}
         {errorMessage && <span>{errorMessage}</span>}
       </div>
-      <div>
+      <div className="flex flex-col">
         <label htmlFor="gender">Gender</label>
         <select {...register("gender", { required: true })}>
           <option hidden>Select Gender</option>
@@ -62,7 +62,7 @@ const Form = ({ defaultValues, onSubmit, errorMessage }: IFormProps) => {
           <option value="male">Male</option>
         </select>
       </div>
-      <div>
+      <div className="flex flex-col">
         <label htmlFor="status">Status</label>
         <select
           {...register("status", { required: true })}
@@ -73,7 +73,12 @@ const Form = ({ defaultValues, onSubmit, errorMessage }: IFormProps) => {
           <option value="inactive">Inactive</option>
         </select>
       </div>
-      <input type="submit" />
+      <div className="flex justify-center">
+        <input
+          type="submit"
+          className="border border-black mt-2 px-3 py-2 rounded-md"
+        />
+      </div>
     </form>
   );
 };

@@ -17,20 +17,17 @@ import {
 } from "@/app/client/usersClient";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
-import debounce from "lodash.debounce";
 
-export const useAllUsers = (page: number, query: string) => {
+export const useAllUsers = (page: number) => {
   const dispatch = useDispatch();
-  // const searchQuery = useSelector((state: RootState) => state.users.query);
-
-  const debouncedUsers = debounce(getUsers, 500);
+  const searchQuery = useSelector((state: RootState) => state.users.query);
 
   return useQuery({
-    queryKey: ["users", page],
+    queryKey: ["users", page, searchQuery],
     queryFn: async () => {
-      const data = await debouncedUsers({ page });
-      console.log("hell", data?.data);
-      dispatch(setUsers(data?.data));
+      const { data } = await getUsers({ page, name: searchQuery });
+      console.log("hell", data);
+      dispatch(setUsers(data));
       return data;
     },
     staleTime: 5000,
@@ -82,4 +79,12 @@ export const useEditUser = (id: number) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
+};
+
+export const useSearchUsers = () => {
+  const dispatch = useDispatch();
+
+  return (searchQuery: string) => {
+    dispatch(setSearchQuery(searchQuery));
+  };
 };

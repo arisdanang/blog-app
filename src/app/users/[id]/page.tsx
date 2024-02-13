@@ -30,7 +30,7 @@ const Page = ({ params }: { params: { id: number } }) => {
   };
   return (
     <div className="min-h-[calc(100vh_-_120px)]">
-      <h1>Edit user</h1>
+      <h1 className="font-bold text-lg">Edit user</h1>
       <Form
         defaultValues={detailData}
         onSubmit={onSubmit}

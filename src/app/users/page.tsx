@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Button from "../_components/button/Button";
-import { useAllUsers, useDeleteUser } from "../hooks/api/users";
+import { useAllUsers, useDeleteUser, useSearchUsers } from "../hooks/api/users";
 import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
+import { divide } from "lodash";
 
 type UserProps = {
   id: number;
@@ -15,8 +16,9 @@ type UserProps = {
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const searchUsers = useSearchUsers();
 
-  const { data } = useAllUsers(currentPage, searchQuery);
+  const { data, isLoading } = useAllUsers(currentPage);
   const { mutate } = useDeleteUser();
   const queryClient = useQueryClient();
 
@@ -28,6 +30,10 @@ const Page = () => {
     });
   };
 
+  const handleSearch = (searchQuery: string) => {
+    searchUsers(searchQuery);
+  };
+
   return (
     <div className="min-h-screen">
       <h1 className="font-bold mb-4 text-lg">List Users</h1>
@@ -35,7 +41,7 @@ const Page = () => {
         <input
           type="text"
           className="max-w-[65%] border px-2 py-1 border-gray-500 rounded-md"
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
         />
         <Button className="text-sm border border-black px-2 py-1.5 rounded-md">
           Search
@@ -49,6 +55,11 @@ const Page = () => {
           Create User
         </Link>
       </div>
+      {isLoading && (
+        <div className="min-h-[calc(100vh_-_120px)] text-center text-lg">
+          Loading
+        </div>
+      )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {data?.map((user: UserProps) => (
           <article

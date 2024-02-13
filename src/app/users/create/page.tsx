@@ -28,7 +28,7 @@ const Page = () => {
 
   return (
     <div className="min-h-[calc(100vh_-_120px)]">
-      <h1>Create new user</h1>
+      <h1 className="font-bold">Create new user</h1>
       <Form onSubmit={onSubmit} errorMessage={errorMessage} />
     </div>
   );
