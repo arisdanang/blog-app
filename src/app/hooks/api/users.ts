@@ -5,7 +5,6 @@ import {
   deleteUser,
   updateUser,
   setSearchQuery,
-  setCurrentPage,
 } from "@/app/_store/usersSlice";
 import {
   Body,

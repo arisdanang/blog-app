@@ -7,13 +7,6 @@ import { setPosts } from "@/app/_store/postsSlice";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 
-interface PostData {
-  id: number;
-  user_id: number;
-  title: string;
-  body: string;
-}
-
 export const usePosts = (page: number) => {
   const dispatch = useDispatch();
 
