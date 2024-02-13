@@ -31,13 +31,20 @@ const Page = ({ params }: { params: { id: number } }) => {
       <h5>Comments</h5>
       {commentData?.data.length > 0 ? (
         <section>
-          {commentData?.data.map((comment) => (
-            <div key={comment.id}>
-              <p>{comment.body}</p>
-              <p>{comment?.name}</p>
-              <p>{comment?.email}</p>
-            </div>
-          ))}
+          {commentData?.data.map(
+            (comment: {
+              id: number;
+              body: string;
+              name: string;
+              email: string;
+            }) => (
+              <div key={comment.id}>
+                <p>{comment.body}</p>
+                <p>{comment?.name}</p>
+                <p>{comment?.email}</p>
+              </div>
+            )
+          )}
         </section>
       ) : (
         <p className="text-center text-sm">there is no comment</p>
