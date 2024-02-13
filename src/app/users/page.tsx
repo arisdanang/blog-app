@@ -4,7 +4,6 @@ import Button from "../_components/button/Button";
 import { useAllUsers, useDeleteUser, useSearchUsers } from "../hooks/api/users";
 import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
-import { divide } from "lodash";
 
 type UserProps = {
   id: number;
@@ -14,7 +13,6 @@ type UserProps = {
   status: string;
 };
 const Page = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const searchUsers = useSearchUsers();
 
